@@ -1,0 +1,16 @@
+.prediction-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.prediction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.prediction-container h2 {
+  margin: 0;
+}

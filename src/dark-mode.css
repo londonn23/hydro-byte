@@ -1,0 +1,40 @@
+/* dark-mode.css */
+
+.App.dark {
+  background-color: #222;
+  color: #fff;
+}
+
+.App.dark .header {
+  background-color: #333;
+  border-bottom: 1px solid #555;
+}
+
+.App.dark .header h1 {
+  color: #fff;
+}
+
+.App.dark .left-container,
+.App.dark .right-container {
+  border-color: #555;
+}
+
+.App.dark .liquid-gauge {
+  border-color: #fff;
+}
+
+.App.dark .prediction-container li {
+  border-bottom-color: #555;
+}
+
+.App.dark .recharts-cartesian-axis-tick-value tspan {
+  fill: #fff;
+}
+
+.App.dark .recharts-legend-item {
+  color: #fff !important;
+}
+
+.App.dark .recharts-text {
+  fill: #fff;
+}

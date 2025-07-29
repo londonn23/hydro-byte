@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.5em;
+  color: #333;
+}
+
+.theme-toggle-button {
+  padding: 10px 20px;
+  border: 1px solid #333;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.App.dark .theme-toggle-button {
+  background-color: #444;
+  color: #fff;
+  border-color: #fff;
+}
