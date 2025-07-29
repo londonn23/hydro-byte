@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './WaterLevel.css';
 
 const WaterLevel = () => {
   const [waterLevel, setWaterLevel] = useState(75); // Initial water level
 
-  const handleLevelChange = (level) => {
-    setWaterLevel(level);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxXSm_TM3D8Lrtf-wetdoeyrCEHi9lKfbKt2Xahx49db96aH1mRv8OXmnRoDKw9Rrn3/exec');
+        const text = await response.text();
+        const newWaterLevel = parseFloat(text);
+        if (!isNaN(newWaterLevel)) {
+          setWaterLevel(newWaterLevel);
+        } else {
+          console.error('Error: Fetched data is not a number');
+        }
+      } catch (error) {
+        console.error('Error fetching water level:', error);
+      }
+    };
+
+    fetchData(); // Initial fetch
+    const interval = setInterval(fetchData, 10000); // Fetch every 10 seconds
+
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, []);
 
   const getColor = (level) => {
     const red = 255 - (level / 100) * 255;
@@ -27,13 +45,6 @@ const WaterLevel = () => {
             }}
           ></div>
         </div>
-          <div className="button-container">
-              <button onClick={() => handleLevelChange(100)}>100%</button>
-              <button onClick={() => handleLevelChange(75)}>75%</button>
-              <button onClick={() => handleLevelChange(50)}>50%</button>
-              <button onClick={() => handleLevelChange(25)}>25%</button>
-              <button onClick={() => handleLevelChange(0)}>0%</button>
-          </div>
       </div>
       <p style={{textAlign: 'center', marginTop: '20px'}}>{waterLevel}% Full</p>
     </div>

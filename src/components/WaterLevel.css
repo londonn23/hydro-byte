@@ -33,16 +33,4 @@
   transition: height 0.5s ease, background-color 0.5s ease;
 }
 
-.button-container {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-}
 
-.button-container button {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-}
