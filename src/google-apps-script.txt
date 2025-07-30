@@ -1,28 +1,44 @@
 function doGet(e) {
-  // Open the Google Sheet by its name.
-  // For a more robust solution, especially if you have multiple files with the same name,
-  // consider opening by ID: SpreadsheetApp.openById('YOUR_SPREADSHEET_ID');
+  // Open the active Google Sheet.
   const ss = SpreadsheetApp.getActiveSpreadsheet();
+  // Get the sheet named "Sheet1".
   const sheet = ss.getSheetByName("Sheet1");
 
+  // If the sheet doesn't exist, return a JSON error message.
   if (!sheet) {
-    // Return an error message if the sheet is not found
-    return ContentService.createTextOutput("Sheet 'Sheet1' not found.");
+    return ContentService.createTextOutput(JSON.stringify({ error: "Sheet 'Sheet1' not found." }))
+      .setMimeType(ContentService.MimeType.JSON);
   }
 
-  // Get all the values in column E (the 5th column)
-  const range = sheet.getRange("E:E");
-  const values = range.getValues();
-
-  // Find the last non-empty value by iterating backwards
-  let latestValue = ""; // Default to an empty string if no value is found
-  for (let i = values.length - 1; i >= 0; i--) {
-    if (values[i][0] !== "" && values[i][0] !== null && values[i][0] !== undefined) {
-      latestValue = values[i][0];
-      break; // Exit the loop once the last value is found
+  // Helper function to get the last non-empty value from a specific column.
+  function getLatestValue(column) {
+    // Get all values from the specified column.
+    const range = sheet.getRange(column + ":" + column);
+    const values = range.getValues();
+    // Iterate backwards from the end of the column to find the last non-empty cell.
+    for (let i = values.length - 1; i >= 0; i--) {
+      if (values[i][0] !== "" && values[i][0] !== null && values[i][0] !== undefined) {
+        return values[i][0]; // Return the value once found.
+      }
     }
+    return null; // Return null if the column is empty or contains no data.
   }
 
-  // Return the single value as text
-  return ContentService.createTextOutput(latestValue);
+  // Retrieve the latest value from each specified column.
+  const temperature = getLatestValue("B"); // Column B for Temperature
+  const humidity = getLatestValue("C");    // Column C for Humidity
+  const distance = getLatestValue("D");    // Column D for Distance
+  const waterLevel = getLatestValue("E");  // Column E for Water Level
+
+  // Structure the collected data into a JSON object.
+  const data = {
+    temperature: temperature,
+    humidity: humidity,
+    distance: distance,
+    waterLevel: waterLevel
+  };
+
+  // Return the data as a JSON string.
+  return ContentService.createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
 }

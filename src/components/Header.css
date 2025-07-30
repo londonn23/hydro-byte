@@ -27,3 +27,19 @@
   color: #fff;
   border-color: #fff;
 }
+
+@media (max-width: 768px) {
+  .header {
+    padding: 15px;
+    flex-direction: column;
+  }
+
+  .header h1 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+  }
+
+  .theme-toggle-button {
+    padding: 8px 16px;
+  }
+}

@@ -14,3 +14,14 @@
 .prediction-container h2 {
   margin: 0;
 }
+
+@media (max-width: 768px) {
+  .prediction-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .prediction-container h2 {
+    margin-bottom: 10px;
+  }
+}
